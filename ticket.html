@@ -95,7 +95,7 @@
             margin-top: 20px;
         }
 
-        .print-button {
+        .print-button, .logout-button {
             padding: 12px 30px;
             background-color: #3498db;
             color: white;
@@ -104,9 +104,10 @@
             font-size: 18px;
             cursor: pointer;
             transition: background-color 0.3s ease;
+            margin: 0 10px;
         }
 
-        .print-button:hover {
+        .print-button:hover, .logout-button:hover {
             background-color: #2980b9;
         }
 
@@ -159,7 +160,6 @@
         .ticket-container {
             animation: fadeIn 0.8s ease-out;
         }
-
     </style>
 </head>
 <body>
@@ -189,25 +189,24 @@
             <p><strong>Event Date:</strong> <span id="event-date">2024-12-01 18:00</span></p>
             <p><strong>Location:</strong> <span id="event-location">City Arena, New York</span></p>
             <p><strong>Price:</strong> $<span id="ticket-price">100.00</span></p>
-          
             <p><strong>Zone:</strong> <span id="ticket-zone">VIP</span></p>
-            <p><strong>Purchase Date:</strong> <span id="purchase-date">2024-11-25</span></p>
+            <p><strong>Purchase Date:</strong> <span id="current-datetime"></span></p>
         </div>
     </div>
 
-    <!-- QR Code Section -->
-    <div class="qr-code" id="qrcode"></div>
+    
 
     <!-- Important Info Section -->
     <div class="important-info">
         <h4>Important Information:</h4>
         <p><strong>Ticket Validity:</strong> This ticket is valid only for the specified date and time.</p>
-        <p><strong>Customer Support:</strong> For assistance, contact us at +123-456-7890 or support@event.com</p>
+        <p><strong>Customer Support:</strong> For assistance, contact us at +961 76 311 391 or support@event.com</p>
     </div>
 
-    <!-- Print Button -->
+    <!-- Footer with Print and Log Out Buttons -->
     <div class="ticket-footer">
         <button class="print-button" onclick="window.print()">Print Ticket</button>
+        <button class="logout-button" onclick="logout()">Log Out</button>
     </div>
 
     <!-- Footer Text -->
@@ -218,41 +217,33 @@
 </div>
 
 <script>
-    // Ticket data for QR code generation
-    var ticketData = {
-        ticket_id: document.getElementById('ticket-id').textContent,
-        buyer_name: document.getElementById('buyer-name').textContent,
-        ticket_zone: document.getElementById('ticket-zone').textContent,
-        ticket_price: document.getElementById('ticket-price').textContent,
-        event_title: document.getElementById('show-title') ? document.getElementById('show-title').textContent : "Concert Live",
-        event_date: document.getElementById('event-date').textContent,
-        event_location: document.getElementById('event-location').textContent,
-        purchase_date: document.getElementById('purchase-date').textContent
-    };
+    // Function to format date and time
+    function getCurrentDateTime() {
+        const now = new Date();
+        const options = {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+            hour12: true
+        };
+        return now.toLocaleString('en-US', options);
+    }
 
-    var qrContent = `
-        Ticket ID: ${ticketData.ticket_id}
-        Show Title: ${ticketData.event_title}
-        Date: ${ticketData.event_date}
-        Location: ${ticketData.event_location}
-        Name: ${ticketData.buyer_name}
-        Price: $${ticketData.ticket_price}
-        Zone: ${ticketData.ticket_zone}
-        Purchase Date: ${ticketData.purchase_date}
-    `;
+    // Set the current date and time
+    document.getElementById('current-datetime').textContent = getCurrentDateTime();
 
-    // Generate the QR code and display it in the ticket
-    var qrcode = new QRCode(document.getElementById("qrcode"), {
-        text: qrContent,
-        width: 160,
-        height: 160,
-        colorDark: "#2c3e50",
-        colorLight: "#ffffff",
-        correctLevel: QRCode.CorrectLevel.H
-    });
+    
+
+    // Log Out function (You can modify this based on your authentication system)
+    function logout() {
+        alert("Logging out...");
+        // Redirect to login page or clear session (example below)
+        window.location.href = "/login";  // Replace with your login URL
+    }
 </script>
 
 </body>
 </html>
-
-
