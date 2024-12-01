@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Event Ticket</title>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode"></script> <!-- QR Code library -->
+    <style>
+        /* Global Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background: #f4f7fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        /* Ticket Container */
+        .ticket-container {
+            width: 750px;
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            font-size: 16px;
+            color: #333;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        /* Header with Logo and Title */
+        .ticket-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .ticket-header h2 {
+            font-size: 40px;
+            color: #2c3e50;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .ticket-header p {
+            font-size: 18px;
+            color: #3498db;
+            font-weight: 500;
+        }
+
+        /* Details Section */
+        .ticket-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .ticket-details h4 {
+            font-size: 20px;
+            color: #34495e;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .ticket-details p {
+            font-size: 16px;
+            color: #7f8c8d;
+            margin-bottom: 8px;
+        }
+
+        /* QR Code Section */
+        .qr-code {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .qr-code img {
+            width: 160px;
+            height: 160px;
+        }
+
+        /* Footer with Print Button */
+        .ticket-footer {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .print-button {
+            padding: 12px 30px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .print-button:hover {
+            background-color: #2980b9;
+        }
+
+        /* Bottom Info Section */
+        .footer-text {
+            font-size: 14px;
+            text-align: center;
+            color: #7f8c8d;
+            margin-top: 20px;
+        }
+
+        .important-info {
+            background: #ecf0f1;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        .important-info h4 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #e67e22;
+            margin-bottom: 12px;
+        }
+
+        .important-info p {
+            font-size: 14px;
+            color: #7f8c8d;
+            margin-bottom: 5px;
+        }
+
+        /* Gradient background for ticket container */
+        .ticket-container {
+            background: linear-gradient(145deg, #ffffff, #f0f0f5);
+        }
+
+        /* Smooth fade-in for the whole ticket */
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .ticket-container {
+            animation: fadeIn 0.8s ease-out;
+        }
+
+    </style>
+</head>
+<body>
+
+<!-- Ticket Container -->
+<div class="ticket-container">
+
+    <!-- Header with Event Title and Ticket ID -->
+    <div class="ticket-header">
+        <h2>Concert Live 2024</h2>
+        <p>Ticket ID: <span id="ticket-id">12345</span></p>
+    </div>
+
+    <!-- Ticket Information Details -->
+    <div class="ticket-details">
+        <!-- Buyer Information -->
+        <div>
+            <h4>Buyer Information</h4>
+            <p><strong>Name:</strong> <span id="buyer-name">John Doe</span></p>
+            <p><strong>Email:</strong> <span id="buyer-email">john.doe@example.com</span></p>
+            <p><strong>Phone:</strong> <span id="buyer-phone">+1234567890</span></p>
+        </div>
+
+        <!-- Ticket Information -->
+        <div>
+            <h4>Ticket Details</h4>
+            <p><strong>Event Date:</strong> <span id="event-date">2024-12-01 18:00</span></p>
+            <p><strong>Location:</strong> <span id="event-location">City Arena, New York</span></p>
+            <p><strong>Price:</strong> $<span id="ticket-price">100.00</span></p>
+          
+            <p><strong>Zone:</strong> <span id="ticket-zone">VIP</span></p>
+            <p><strong>Purchase Date:</strong> <span id="purchase-date">2024-11-25</span></p>
+        </div>
+    </div>
+
+    <!-- QR Code Section -->
+    <div class="qr-code" id="qrcode"></div>
+
+    <!-- Important Info Section -->
+    <div class="important-info">
+        <h4>Important Information:</h4>
+        <p><strong>Ticket Validity:</strong> This ticket is valid only for the specified date and time.</p>
+        <p><strong>Customer Support:</strong> For assistance, contact us at +123-456-7890 or support@event.com</p>
+    </div>
+
+    <!-- Print Button -->
+    <div class="ticket-footer">
+        <button class="print-button" onclick="window.print()">Print Ticket</button>
+    </div>
+
+    <!-- Footer Text -->
+    <div class="footer-text">
+        <p>Thank you for purchasing! Enjoy your event experience.</p>
+    </div>
+
+</div>
+
+<script>
+    // Ticket data for QR code generation
+    var ticketData = {
+        ticket_id: document.getElementById('ticket-id').textContent,
+        buyer_name: document.getElementById('buyer-name').textContent,
+        ticket_zone: document.getElementById('ticket-zone').textContent,
+        ticket_price: document.getElementById('ticket-price').textContent,
+        event_title: document.getElementById('show-title') ? document.getElementById('show-title').textContent : "Concert Live",
+        event_date: document.getElementById('event-date').textContent,
+        event_location: document.getElementById('event-location').textContent,
+        purchase_date: document.getElementById('purchase-date').textContent
+    };
+
+    var qrContent = `
+        Ticket ID: ${ticketData.ticket_id}
+        Show Title: ${ticketData.event_title}
+        Date: ${ticketData.event_date}
+        Location: ${ticketData.event_location}
+        Name: ${ticketData.buyer_name}
+        Price: $${ticketData.ticket_price}
+        Zone: ${ticketData.ticket_zone}
+        Purchase Date: ${ticketData.purchase_date}
+    `;
+
+    // Generate the QR code and display it in the ticket
+    var qrcode = new QRCode(document.getElementById("qrcode"), {
+        text: qrContent,
+        width: 160,
+        height: 160,
+        colorDark: "#2c3e50",
+        colorLight: "#ffffff",
+        correctLevel: QRCode.CorrectLevel.H
+    });
+</script>
+
+</body>
+</html>
+
+
