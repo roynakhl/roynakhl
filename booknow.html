@@ -3,164 +3,97 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Book Your Event - Concert Zone Map</title>
+    <title>Event Booking</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+        /* General Reset */
+        * {
             margin: 0;
-            padding: 20px;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        h1, h2 {
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            background-color: #f5f7fb;
+            color: #2e3b4e;
+            padding: 0;
+            font-size: 16px;
+        }
+
+        /* Black Friday Banner */
+        .black-friday-banner {
+            background-color: #ff5e57;
+            color: #fff;
+            padding: 20px 0;
+            font-size: 1.5rem;
             text-align: center;
+            font-weight: bold;
+            position: sticky;
+            top: 0;
+            z-index: 999;
+            border-radius: 0 0 10px 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            animation: slideIn 1s ease-in-out;
         }
 
+        .black-friday-banner span {
+            font-size: 1.7rem;
+            font-weight: 700;
+            color: #fff;
+            text-transform: uppercase;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-100%);
+            }
+            to {
+                transform: translateY(0);
+            }
+        }
+
+        /* Main Container */
         .container {
             max-width: 800px;
-            margin: 0 auto;
+            margin: 20px auto;
             padding: 20px;
             background: white;
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
 
-        .show-details {
-            margin-bottom: 20px;
-        }
-
-        .show-details h2 {
-            font-size: 1.8rem;
-            color: #405a7d;
-        }
-
-        .show-details p {
-            margin: 10px 0;
-            color: #555;
-        }
-
-        .price-list {
-            margin: 15px 0;
-            padding: 10px;
-            background: #f9f9f9;
-            border-radius: 5px;
-            border: 1px solid #ddd;
-        }
-
-        .price-list ul {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        .price-list ul li {
-            margin: 5px 0;
-            color: #333;
-        }
-
-        .map-container {
-            position: relative;
-            max-width: 800px;
+        .center-image {
+            display: block;
             margin: 20px auto;
-            height: 600px;
-            background: #ddd;
+            max-width: 80%;
             border: 3px solid #444;
-            border-radius: 8px;
+            border-radius: 10px;
         }
 
-        .stage {
-            position: absolute;
-            top: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80%;
-            height: 50px;
-            background-color: #333;
-            color: #fff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        label {
             font-weight: bold;
+            margin-top: 10px;
+            display: block;
+        }
+
+        select, input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #524f4f;
             border-radius: 5px;
         }
 
-        .zone {
-            position: absolute;
-            border: 2px solid transparent;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: transform 0.3s, border-color 0.3s;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-weight: bold;
-            color: #fff;
-        }
-
-        .zone:hover {
-            transform: scale(1.05);
-            border-color: #FF5722;
-        }
-
-        .zone.selected {
-            background-color: rgba(255, 87, 34, 0.7);
-            border-color: #FF5722;
-        }
-
-        .zone1 {
-            top: 80px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60%;
-            height: 100px;
-            background-color: #2196F3;
-        }
-
-        .zone2 {
-            top: 200px;
-            left: 15%;
-            width: 70%;
-            height: 100px;
-            background-color: #4CAF50;
-        }
-
-        .zone3 {
-            top: 320px;
-            left: 20%;
-            width: 60%;
-            height: 80px;
-            background-color: #FFC107;
-        }
-
-        .zone4 {
-            top: 420px;
-            left: 25%;
-            width: 50%;
-            height: 80px;
-            background-color: #9C27B0;
-        }
-
-        .info {
-            max-width: 800px;
-            margin: 20px auto;
-            background: white;
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .info h3 {
-            margin: 0 0 10px;
-        }
-
-        .info .selected-zones {
-            color: #FF5722;
-            font-weight: bold;
+        input[type="number"] {
+            appearance: textfield;
+            -moz-appearance: textfield;
         }
 
         .submit-button {
             display: block;
             width: 100%;
-            background-color: #4CAF50;
+            background-color: #3d403e;
             color: white;
             padding: 10px 15px;
             border: none;
@@ -171,7 +104,7 @@
         }
 
         .submit-button:hover {
-            background-color: #45a049;
+            background-color:rgb(47, 45, 45);
         }
 
         .payment-section {
@@ -182,200 +115,213 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
 
-        .payment-section h2 {
-            text-align: center;
-        }
-
-        .payment-section input {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border-radius: 5px;
-            border: 1px solid #ddd;
-        }
-
-        .payment-section input[type="number"] {
-            -moz-appearance: textfield;
-            appearance: textfield;
-        }
-
-        .total-price {
-            text-align: center;
-            margin-bottom: 20px;
-            font-size: 1.2rem;
-            color: #4CAF50;
-            font-weight: bold;
-        }
-
         .card-input {
-            letter-spacing: 2px;
-            font-size: 18px;
-            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 16px;
         }
 
         .card-input::placeholder {
             color: #999;
         }
-        
-        .payment-logo {
-            max-width: 100px;
-            margin: 10px;
-            display: inline-block;
+
+        .discounted-price {
+            color: red;
+            text-decoration: line-through;
+            font-size: 18px;
         }
- 
 
+        .final-price {
+            font-size: 20px;
+            font-weight: bold;
+            color: #4CAF50;
+        }
 
+        /* Modal Styles for Disclaimer */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            text-align: center;
+            max-width: 400px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .modal-container h2 {
+            margin-bottom: 20px;
+        }
+
+        .modal-container p {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .modal-btn {
+            background-color: gray;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .modal-btn:hover {
+            background-color: dark gray;
+        }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <div class="show-details">
-            <h2>Live Music Night</h2>
-            <p><strong>Date:</strong> January 15, 2024</p>
-            <p><strong>Time:</strong> 7:00 PM - 10:00 PM</p>
-            <p><strong>Location:</strong> Casino Du Liban</p>
-            <p><strong>Description:</strong> Enjoy a magical evening of live music featuring top artists like X and Y , along with a stunning light show to make your night unforgettable!</p>
-        </div>
+<!-- Black Friday Banner -->
+<div class="black-friday-banner">
+    🎉 <span>Black Friday Alert!</span> 🎉
+    <br>
+    Get <span>20% off</span> on everything until December 4th! Don't miss out on the best deals of the year!
+</div>
 
-        <div class="price-list">
-            <h3>Ticket Prices</h3>
-            <ul>
-                <li style="color: #2196F3;"><strong>VIP Section:</strong> $120</li>
-                <li style="color: #4CAF50;"><strong>Premium Seats:</strong> $80</li>
-                <li style="color: #FFC107;"><strong>Regular Seats:</strong> $50</li>
-                <li style="color: #9C27B0;"><strong>General Admission:</strong> $30</li>
-            </ul>
-        </div>
+<div class="container">
+    <h1>Book Your Event</h1>
+    <p><strong>Date:</strong> January 15, 2024</p>
+    <p><strong>Location:</strong> Casino Du Liban</p>
+    <p><strong>Description:</strong> Enjoy a magical evening of live music featuring top artists.</p>
+
+    <label for="ticket-choice">Select Ticket Type:</label>
+    <select id="ticket-choice">
+        <option value="VIP" data-price="100">Red Section - $100</option>
+        <option value="Premium" data-price="80">Purple Section - $80</option>
+        <option value="Regular" data-price="50">Orange Section - $50</option>
+    </select>
+
+    <label for="ticket-quantity">Number of Tickets:</label>
+    <input type="number" id="ticket-quantity" min="0" max="1" value="1">
+
+    <!-- Display Ticket Price -->
+    <div id="price-section">
+        <div class="discounted-price" id="discounted-price" style="display: none;">Original Price: $100</div>
+        <div class="final-price" id="final-price">Price: $100</div>
     </div>
 
-    <h1>Concert Zone Map</h1>
+    <h2>Reference Map</h2>
+    <img src="https://th.bing.com/th/id/OIP.MTjApaW7UvnVYM7iKhgLMAHaEY?w=310&h=184&c=7&r=0&o=5&dpr=1.3&pid=1.7"
+         alt="Stage Map" class="center-image">
 
-    <div class="map-container">
-        <div class="stage">STAGE</div>
-        <div class="zone zone1" data-zone="VIP Section"></div>
-        <div class="zone zone2" data-zone="Premium Seats"></div>
-        <div class="zone zone3" data-zone="Regular Seats"></div>
-        <div class="zone zone4" data-zone="General Admission"></div>
-    </div>
-
-    <div class="info">
-        <h3>Selected Zones:</h3>
-        <p class="selected-zones">None</p>
-        <label for="ticket-quantity">Select Number of Tickets (0 or 1):</label>
-        <input type="number" id="ticket-quantity" name="ticket-quantity" min="0" max="1" value="0">
-        <button class="submit-button" id="confirm-selection">Confirm Selection</button>
-    </div>
-
-    <div class="total-price" id="total-price" style="display: none;">
-        Total Price: $0
-    </div>
-
-    <div class="payment-section" style="display: none;" id="payment-section">
+    <div class="payment-section" id="payment-section">
         <h2>Payment Information</h2>
-        <input type="text" class="card-input" placeholder="Cardholder Full Name" id="cardholder-name">
-        <input type="text" class="card-input" placeholder="Card Number" id="card-number" maxlength="19" oninput="formatCardNumber(event)">
-        <input type="text" class="card-input" placeholder="MM/YY" id="exp-date" maxlength="5">
-        <input type="password" class="card-input" placeholder="CVV" id="cvv">
-        <a href="ticket.html" class="submit-button">Proceed to Payment</a>
-      
+        <input type="text" class="card-input" placeholder="Cardholder Full Name" id="cardholder-name" required>
+        <input type="text" class="card-input" placeholder="Card Number" id="card-number" maxlength="19"
+               oninput="formatCardNumber(event)" required>
+        <input type="text" class="card-input" placeholder="MM/YY" id="exp-date" maxlength="5"
+               oninput="formatExpirationDate(event)" required>
+        <input type="password" class="card-input" placeholder="CVV" id="cvv" maxlength="3" required>
+        <button class="submit-button" id="proceed-payment">Proceed to Payment</button>
     </div>
+</div>
 
-    <div class="payment-section" style="display: none;" id="payment-section1">
+<!-- Modal for Disclaimer -->
+<div class="modal-overlay" id="disclaimer-modal">
+    <div class="modal-container">
+        <h2>Attention!</h2>
+        <p>Please make sure all the required information is filled out before proceeding with payment.</p>
+        <button class="modal-btn" onclick="closeModal()">OK</button>
+    </div>
+</div>
+
+<script>
+    // Restrict MM/YY field to numbers only
+    function formatExpirationDate(event) {
+        const input = event.target;
+        input.value = input.value
+            .replace(/\D/g, '') // Remove non-numeric characters
+            .replace(/^(\d{2})(\d{0,2})/, '$1/$2') // Add slash after MM
+            .substr(0, 5); // Limit to 5 characters (MM/YY)
+    }
+
+    // Format card number input to add spaces
+    function formatCardNumber(event) {
+        const input = event.target;
+        input.value = input.value.replace(/\D/g, '').replace(/(.{4})/g, '$1 ').trim();
+    }
+
+    // Update the price based on ticket selection
+    function updatePrice() {
+        const ticketChoice = document.getElementById('ticket-choice');
+        const quantity = document.getElementById('ticket-quantity').value;
+        const selectedOption = ticketChoice.options[ticketChoice.selectedIndex];
+        const price = selectedOption.getAttribute('data-price');
+        const totalPrice = price * quantity;
         
-        <div class="payment-logos">
-            <div class="'payment-logo-container">
-            <img src="https://th.bing.com/th/id/OIP.xVREsbEnxpFwYsgl4hNO7QHaDA?w=313&h=142&c=7&r=0&o=5&dpr=1.3&pid=1.7" alt="Visa" class="payment-logo">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/b/b7/MasterCard_Logo.svg" alt="Mastercard" class="payment-logo">
-            <img src="https://th.bing.com/th/id/OIP.BuDeMp9_yMiXlI_7OqCkvQHaD2?w=300&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7" alt="OMT" class="payment-logo">
-        </div>
-    </div>
-
-    <script>
-        // Select all the zones
-        const zones = document.querySelectorAll('.zone');
-        const selectedZonesText = document.querySelector('.selected-zones');
-        const totalPrice = document.getElementById('total-price');
-        const paymentSection = document.getElementById('payment-section');
-        const paymentSection1 = document.getElementById('payment-section1');
-        const submitButton = document.getElementById('confirm-selection');
-
-        // Price mapping
-        const zonePrices = {
-            'VIP Section': 120,
-            'Premium Seats': 80,
-            'Regular Seats': 50,
-            'General Admission': 30
-        };
-
-        let selectedZones = [];
-        let totalAmount = 0;
-
-        // Add event listeners to zones
-        zones.forEach(zone => {
-            zone.addEventListener('click', () => {
-                const zoneName = zone.getAttribute('data-zone');
-                const zoneIndex = selectedZones.indexOf(zoneName);
-
-                if (zoneIndex > -1) {
-                    // Zone is already selected, remove it
-                    selectedZones.splice(zoneIndex, 1);
-                    totalAmount -= zonePrices[zoneName];
-                    zone.classList.remove('selected');
-                } else {
-                    // Add zone to selected zones
-                    if (selectedZones.length < 1) {
-                        selectedZones.push(zoneName);
-                        totalAmount += zonePrices[zoneName];
-                        zone.classList.add('selected');
-                    }
-                }
-
-                // Update the selected zones and total price
-                selectedZonesText.textContent = selectedZones.join(', ') || 'None';
-                totalPrice.textContent = `Total Price: $${totalAmount}`;
-                totalPrice.style.display = selectedZones.length ? 'block' : 'none';
-            });
-        });
-
-        // Show payment section when confirm button is clicked
-        submitButton.addEventListener('click', () => {
-            if (selectedZones.length > 0) {
-                paymentSection.style.display = 'block';
-                paymentSection1.style.display = 'block';
-                document.querySelector('.info').style.display = 'none';
-            }
-        });
-
-        // Card number formatting (insert spaces)
-        function formatCardNumber(event) {
-            const input = event.target;
-            input.value = input.value.replace(/\D/g, '').replace(/(.{4})/g, '$1 ').trim();
+        const today = new Date();
+        const blackFridayStart = new Date('2024-11-30');
+        const blackFridayEnd = new Date('2024-12-04');
+        
+        // Check if today is between November 30, 2024, and December 4, 2024
+        if (today >= blackFridayStart && today <= blackFridayEnd) {
+            const discount = totalPrice * 0.20; // 20% discount
+            const discountedPrice = totalPrice - discount;
+            
+            // Display discounted price and original price
+            document.getElementById('discounted-price').style.display = 'block';
+            document.getElementById('discounted-price').textContent = `Original Price: $${totalPrice}`;
+            document.getElementById('final-price').textContent = `Price: $${discountedPrice.toFixed(2)}`;
+        } else {
+            // Display the normal price if not in the Black Friday period
+            document.getElementById('discounted-price').style.display = 'none';
+            document.getElementById('final-price').textContent = `Price: $${totalPrice}`;
         }
-    </script>
+    }
+
+    // Update price whenever the user changes the ticket type or quantity
+    document.getElementById('ticket-choice').addEventListener('change', updatePrice);
+    document.getElementById('ticket-quantity').addEventListener('input', updatePrice);
+
+    // Initialize the price
+    updatePrice();
+
+    // Restrict input to only letters for Cardholder Name
+    document.getElementById('cardholder-name').addEventListener('input', function (event) {
+        this.value = this.value.replace(/[^a-zA-Z\s]/g, ''); // Remove anything that is not a letter or space
+    });
+
+    // Restrict CVV field to only numbers
+    document.getElementById('cvv').addEventListener('input', function (event) {
+        this.value = this.value.replace(/[^0-9]/g, ''); // Remove anything that is not a digit
+    });
+
+    // Show the modal if form is not complete
+    document.getElementById('proceed-payment').addEventListener('click', () => {
+        const name = document.getElementById('cardholder-name').value.trim();
+        const cardNumber = document.getElementById('card-number').value.trim();
+        const expDate = document.getElementById('exp-date').value.trim();
+        const cvv = document.getElementById('cvv').value.trim();
+
+        if (name && cardNumber && expDate && cvv) {
+            // Proceed to payment
+            window.location.href = 'ticket.html';
+        } else {
+            // Show disclaimer modal
+            document.getElementById('disclaimer-modal').style.display = 'flex';
+        }
+    });
+
+    // Close the modal
+    function closeModal() {
+        document.getElementById('disclaimer-modal').style.display = 'none';
+    }
+</script>
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
